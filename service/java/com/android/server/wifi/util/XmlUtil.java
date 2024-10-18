@@ -873,7 +873,6 @@ public class XmlUtil {
             WifiConfiguration configuration = new WifiConfiguration();
             String configKeyInData = null;
             boolean macRandomizationSettingExists = false;
-            boolean sendDhcpHostnameExists = false;
             byte[] dppConnector = null;
             byte[] dppCSign = null;
             byte[] dppNetAccessKey = null;
@@ -1014,7 +1013,6 @@ public class XmlUtil {
                             break;
                         case XML_TAG_SEND_DHCP_HOSTNAME:
                             configuration.setSendDhcpHostnameEnabled((boolean) value);
-                            sendDhcpHostnameExists = true;
                             break;
                         case XML_TAG_CARRIER_ID:
                             configuration.carrierId = (int) value;
@@ -1150,12 +1148,6 @@ public class XmlUtil {
             if (configuration.macRandomizationSetting
                     == WifiConfiguration.RANDOMIZATION_PERSISTENT && !fromSuggestion) {
                 configuration.macRandomizationSetting = WifiConfiguration.RANDOMIZATION_AUTO;
-            }
-            if (!sendDhcpHostnameExists) {
-                // Update legacy configs to send the DHCP hostname for secure networks only.
-                configuration.setSendDhcpHostnameEnabled(
-                        !configuration.isSecurityType(WifiConfiguration.SECURITY_TYPE_OPEN)
-                        && !configuration.isSecurityType(WifiConfiguration.SECURITY_TYPE_OWE));
             }
             configuration.convertLegacyFieldsToSecurityParamsIfNeeded();
             configuration.setDppConnectionKeys(dppConnector, dppCSign, dppNetAccessKey);
