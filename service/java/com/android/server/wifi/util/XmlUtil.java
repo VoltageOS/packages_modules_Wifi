@@ -372,7 +372,14 @@ public class XmlUtil {
         public static final String XML_TAG_ROAMING_CONSORTIUM_OIS = "RoamingConsortiumOIs";
         public static final String XML_TAG_RANDOMIZED_MAC_ADDRESS = "RandomizedMacAddress";
         public static final String XML_TAG_MAC_RANDOMIZATION_SETTING = "MacRandomizationSetting";
-        public static final String XML_TAG_SEND_DHCP_HOSTNAME = "SendDhcpHostname";
+        // SendDhcpHostname setting was added and enabled by default in Android 14 QPR3 for all
+        // saved Wi-Fi networks except for the ones with OPEN or OWE security type.
+        // On 14 QPR3, usage of this setting was disabled with a flag. That flag is enabled starting
+        // with Android 15.
+        // SendDhcpHostname setting is disabled by default for all Wi-Fi networks on GrapheneOS.
+        // It was renamed to SendDhcpHostname2 to ignore the original value for users who upgrade
+        // from 14 QPR3.
+        public static final String XML_TAG_SEND_DHCP_HOSTNAME = "SendDhcpHostname2";
         public static final String XML_TAG_CARRIER_ID = "CarrierId";
         public static final String XML_TAG_SUBSCRIPTION_ID = "SubscriptionId";
         public static final String XML_TAG_IS_AUTO_JOIN = "AutoJoinEnabled";
