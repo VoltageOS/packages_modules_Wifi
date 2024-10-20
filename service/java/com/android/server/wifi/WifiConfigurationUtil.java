@@ -279,7 +279,7 @@ public class WifiConfigurationUtil {
     public static boolean hasSendDhcpHostnameEnabledChanged(WifiConfiguration existingConfig,
             WifiConfiguration newConfig) {
         if (existingConfig == null) {
-            return !newConfig.isSendDhcpHostnameEnabled();
+            return newConfig.isSendDhcpHostnameEnabled();
         }
         return newConfig.isSendDhcpHostnameEnabled() != existingConfig.isSendDhcpHostnameEnabled();
     }
